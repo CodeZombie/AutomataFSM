@@ -1,0 +1,48 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/Automata/StateMachineEditor.gd" type="Script" id=1]
+
+[node name="AutomataEditor" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 40.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_right = 1064.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
+size_flags_horizontal = 3
+
+[node name="NewStateButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+margin_right = 76.0
+margin_bottom = 32.0
+text = "New State"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GraphEdit" type="GraphEdit" parent="VBoxContainer"]
+margin_top = 36.0
+margin_right = 1064.0
+margin_bottom = 640.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+use_snap = false
+__meta__ = {
+"_edit_use_anchors_": false
+}

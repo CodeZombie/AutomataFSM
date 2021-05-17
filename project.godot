@@ -1,0 +1,50 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "GraphNode",
+"class": "StateGraphNode",
+"language": "GDScript",
+"path": "res://addons/Automata/Nodes/StateNode.gd"
+}, {
+"base": "Resource",
+"class": "StateMachine",
+"language": "GDScript",
+"path": "res://addons/Automata/StateMachine.gd"
+}, {
+"base": "Node",
+"class": "StateMachineController",
+"language": "GDScript",
+"path": "res://addons/Automata/StateMachineController.gd"
+} ]
+_global_script_class_icons={
+"StateGraphNode": "",
+"StateMachine": "",
+"StateMachineController": ""
+}
+
+[application]
+
+config/name="AutomataFSM"
+config/description="Testbed for developing Automata Finite State Machine"
+run/main_scene="res://Main.tscn"
+config/icon="res://icon.png"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/Automata/plugin.cfg", "res://addons/godot-plugin-refresher/plugin.cfg" )
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"

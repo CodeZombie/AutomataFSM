@@ -1,0 +1,92 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://addons/Automata/StateMachineController.gd" type="Script" id=1]
+[ext_resource path="res://addons/Automata/StateMachine.gd" type="Script" id=2]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 2 )
+states = [ {
+"id": 0,
+"name": "Catboys",
+"on_enter_method": "",
+"on_exit_method": "",
+"on_update_method": "",
+"position": Vector2( 253.497, -262.953 ),
+"transitions": [ {
+"conditions": [  ],
+"to_state_id": 1
+} ]
+}, {
+"id": 1,
+"name": "The Holy Spirit",
+"on_enter_method": "",
+"on_exit_method": "",
+"on_update_method": "",
+"position": Vector2( 260.132, -503.208 ),
+"transitions": [ {
+"conditions": [  ],
+"to_state_id": 2
+}, {
+"conditions": [  ],
+"to_state_id": 3
+} ]
+}, {
+"id": 2,
+"name": "The Father",
+"on_enter_method": "",
+"on_exit_method": "",
+"on_update_method": "",
+"position": Vector2( -32, -37.8333 ),
+"transitions": [ {
+"conditions": [  ],
+"to_state_id": 3
+}, {
+"conditions": [  ],
+"to_state_id": 0
+} ]
+}, {
+"id": 3,
+"name": "The Son",
+"on_enter_method": "",
+"on_exit_method": "",
+"on_update_method": "",
+"position": Vector2( 626.5, -305 ),
+"transitions": [ {
+"conditions": [  ],
+"to_state_id": 0
+} ]
+}, {
+"id": 4,
+"name": "Nice",
+"on_enter_method": "",
+"on_exit_method": "",
+"on_update_method": "",
+"position": Vector2( -21, -495 ),
+"transitions": [ {
+"conditions": [  ],
+"to_state_id": 1
+}, {
+"conditions": [  ],
+"to_state_id": 2
+} ]
+}, {
+"id": 5,
+"name": "New State",
+"on_enter_method": "",
+"on_exit_method": "",
+"on_update_method": "",
+"position": Vector2( 585, -497 ),
+"transitions": [ {
+"conditions": [  ],
+"to_state_id": 3
+}, {
+"conditions": [  ],
+"to_state_id": 1
+} ]
+} ]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="StateMachineController" type="Node" parent="."]
+script = ExtResource( 1 )
+state_machine = SubResource( 1 )
