@@ -1,3 +1,7 @@
+#TODO:
+#	Draw methods in StateMachineEditor need to honour scale
+#	Draw commands need to be placed in a CanvasItem above the GraphEdit.
+
 tool
 extends EditorPlugin
 const StateMachineEditor = preload("StateMachineEditor.tscn")

@@ -11,8 +11,8 @@ onready var state_name_label = $ContentContainer/TitleContainer/StateNameLabel
 onready var properties_container = $ContentContainer/PropertiesContainer
 onready var title_container = $ContentContainer/TitleContainer
 onready var title_lineedit = $ContentContainer/PropertiesContainer/state_name_lineedit
-onready var close_button = $ContentContainer/PropertiesContainer/close_button
-
+onready var delete_button = $ContentContainer/PropertiesContainer/button_container/delete_button
+onready var okay_button = $ContentContainer/PropertiesContainer/button_container/save_button
 var mouse_hovered = false
 
 var id
@@ -32,7 +32,7 @@ func _ready():
 	connect("mouse_entered", self, "_on_mouse_entered")
 	connect("mouse_exited", self, "_on_mouse_exited")
 	title_lineedit.connect("text_changed", self, "on_title_lineedit_text_changed")
-	close_button.connect("pressed", self, "hide_properties")
+	okay_button.connect("pressed", self, "hide_properties")
 	
 	hide_properties()
 	set_state_name(state_name)

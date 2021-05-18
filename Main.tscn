@@ -7,14 +7,17 @@
 script = ExtResource( 2 )
 states = [ {
 "id": 0,
-"name": "Catboys",
+"name": "God",
 "on_enter_method": "",
 "on_exit_method": "",
 "on_update_method": "",
-"position": Vector2( 253.497, -262.953 ),
+"position": Vector2( -258.503, -319.953 ),
 "transitions": [ {
 "conditions": [  ],
 "to_state_id": 1
+}, {
+"conditions": [  ],
+"to_state_id": 5
 } ]
 }, {
 "id": 1,
@@ -22,7 +25,7 @@ states = [ {
 "on_enter_method": "",
 "on_exit_method": "",
 "on_update_method": "",
-"position": Vector2( 260.132, -503.208 ),
+"position": Vector2( 110.132, -629.208 ),
 "transitions": [ {
 "conditions": [  ],
 "to_state_id": 2
@@ -36,7 +39,7 @@ states = [ {
 "on_enter_method": "",
 "on_exit_method": "",
 "on_update_method": "",
-"position": Vector2( -32, -37.8333 ),
+"position": Vector2( -9, -262.833 ),
 "transitions": [ {
 "conditions": [  ],
 "to_state_id": 3
@@ -50,10 +53,16 @@ states = [ {
 "on_enter_method": "",
 "on_exit_method": "",
 "on_update_method": "",
-"position": Vector2( 626.5, -305 ),
+"position": Vector2( 493.5, -298 ),
 "transitions": [ {
 "conditions": [  ],
 "to_state_id": 0
+}, {
+"conditions": [  ],
+"to_state_id": 5
+}, {
+"conditions": [  ],
+"to_state_id": 4
 } ]
 }, {
 "id": 4,
@@ -61,7 +70,7 @@ states = [ {
 "on_enter_method": "",
 "on_exit_method": "",
 "on_update_method": "",
-"position": Vector2( -21, -495 ),
+"position": Vector2( -136, -555 ),
 "transitions": [ {
 "conditions": [  ],
 "to_state_id": 1
@@ -75,13 +84,27 @@ states = [ {
 "on_enter_method": "",
 "on_exit_method": "",
 "on_update_method": "",
-"position": Vector2( 585, -497 ),
+"position": Vector2( 398, -631 ),
 "transitions": [ {
 "conditions": [  ],
 "to_state_id": 3
 }, {
 "conditions": [  ],
 "to_state_id": 1
+} ]
+}, {
+"id": 6,
+"name": "New State",
+"on_enter_method": "",
+"on_exit_method": "",
+"on_update_method": "",
+"position": Vector2( 815, -502 ),
+"transitions": [ {
+"conditions": [  ],
+"to_state_id": 3
+}, {
+"conditions": [  ],
+"to_state_id": 2
 } ]
 } ]
 
