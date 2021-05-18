@@ -128,9 +128,10 @@ func _draw():
 		var to_pos = get_local_mouse_position() - graphEdit.rect_position
 		var from_pos = first_state_node_right_clicked.rect_position + (first_state_node_right_clicked.rect_size/2) * graphEdit.zoom
 		var from_pos_edge = get_line_rect_intersection_point(first_state_node_right_clicked.rect_position + Vector2(margin_size, margin_size), first_state_node_right_clicked.rect_position + first_state_node_right_clicked.rect_size * graphEdit.zoom - Vector2(margin_size, margin_size), from_pos, to_pos)
-		graphEdit.add_line(from_pos_edge, to_pos, ColorGreen, 3)
-		graphEdit.add_circle(to_pos, 8 * graphEdit.zoom, ColorGreen)
-		graphEdit.add_circle(from_pos_edge, 8 * graphEdit.zoom, ColorGreen)
+		graphEdit.add_line(from_pos_edge, to_pos, ColorGreen)
+		graphEdit.add_circle(to_pos, ColorGreen)
+		graphEdit.add_circle(from_pos_edge, ColorGreen)
+		
 	if state_machine_set():
 		for state in state_machine_controller.state_machine.states:
 			for transition in state["transitions"]:
@@ -143,9 +144,9 @@ func _draw():
 				
 				var line_start = get_line_rect_intersection_point(from_node_position + Vector2(margin_size,margin_size), from_node_position + from_graphnode.rect_size * graphEdit.zoom - Vector2(margin_size,margin_size), from_pos, to_pos)
 				var line_end = get_line_rect_intersection_point(to_node_position + Vector2(margin_size,margin_size), to_node_position + to_graphnode.rect_size * graphEdit.zoom - Vector2(margin_size,margin_size), to_pos, from_pos)
-				graphEdit.add_line(line_start, line_end, ColorGreen, 4 * graphEdit.zoom)
-				graphEdit.add_circle(line_start, 8 * graphEdit.zoom, ColorGreen)
-				graphEdit.add_circle(line_end, 8 * graphEdit.zoom, ColorGreen)
+				graphEdit.add_line(line_start, line_end, ColorGreen)
+				graphEdit.add_circle(line_start,  ColorGreen)
+				graphEdit.add_circle(line_end, ColorGreen)
 
 func _process(dt):
 	update()
