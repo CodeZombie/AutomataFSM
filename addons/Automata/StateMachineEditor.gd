@@ -44,13 +44,14 @@ func add_state_node(state):
 	newStateNode.connect("right_mouse_pressed", self, "state_node_right_clicked")
 	newStateNode.connect("show_properties", self, "on_state_graphnode_expanded")
 	newStateNode.connect("change_state_name", self, "on_state_name_changed")
+	newStateNode.connect("delete_button_pressed", self, "delete_state_node")
 	graphEdit.add_child(newStateNode)
 	
 func on_state_name_changed(state_id, new_name):
 	state_machine_controller.state_machine.set_state_name(state_id, new_name)
 	
 func update_nodegraph_state(state):
-	var node = get_graphnode_by_state_id(state["id"])
+	var node = get_state_node_by_id(state["id"])
 	node.state_name = state["name"]
 	node.offset = state["position"]
 	
@@ -63,7 +64,7 @@ func add_transition(from, to):
 		
 	state_machine_controller.state_machine.add_transition(from.id, to.id)
 
-func get_graphnode_by_state_id(id):
+func get_state_node_by_id(id):
 	for graphnode in get_all_state_graphnodes():
 		if graphnode.id == id:
 			return graphnode
@@ -81,8 +82,9 @@ func state_machine_set():
 		return false
 	return true
 
-func delete_state_graphnode(id):
-	var node = get_graphnode_by_state_id(id)
+func delete_state_node(id):
+	state_machine_controller.state_machine.delete_state(id)
+	var node = get_state_node_by_id(id)
 	graphEdit.remove_child(node)
 	node.queue_free()
 
@@ -99,14 +101,14 @@ func populate():
 	
 	for state in state_machine_controller.state_machine.states:
 		state_ids.push_back(state["id"])
-		if get_graphnode_by_state_id(state["id"]) == null:
+		if get_state_node_by_id(state["id"]) == null:
 			add_state_node(state)
 		else:
 			update_nodegraph_state(state)
 	
 	for node in get_all_state_graphnodes():
 		if state_ids.find(node.id) == -1:
-			delete_state_graphnode(node.id)
+			delete_state_node(node.id)
 
 func graph_node_moved():
 	for state_node in get_all_state_graphnodes():
@@ -135,8 +137,8 @@ func _draw():
 	if state_machine_set():
 		for state in state_machine_controller.state_machine.states:
 			for transition in state["transitions"]:
-				var from_graphnode = get_graphnode_by_state_id(state["id"])
-				var to_graphnode = get_graphnode_by_state_id(transition["to_state_id"])
+				var from_graphnode = get_state_node_by_id(state["id"])
+				var to_graphnode = get_state_node_by_id(transition["to_state_id"])
 				var from_node_position = from_graphnode.rect_position
 				var to_node_position = to_graphnode.rect_position 
 				var from_pos = from_node_position + (from_graphnode.rect_size/2) * graphEdit.zoom

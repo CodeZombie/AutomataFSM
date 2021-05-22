@@ -1,0 +1,29 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://addons/Automata/StateMachine.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+states = [ {
+"id": 3,
+"name": "3",
+"on_enter_method": "",
+"on_exit_method": "",
+"on_update_method": "",
+"position": Vector2( -126.5, -858 ),
+"transitions": [ {
+"conditions": [  ],
+"to_state_id": 5
+} ]
+}, {
+"id": 5,
+"name": "5",
+"on_enter_method": "",
+"on_exit_method": "",
+"on_update_method": "",
+"position": Vector2( -399, -939 ),
+"transitions": [ {
+"conditions": [  ],
+"to_state_id": 3
+} ]
+} ]

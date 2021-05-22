@@ -46,7 +46,6 @@ func delete_dead_transitions():
 				state["transitions"].remove(i)
 
 func delete_state(state_id):
-	#TODO: Go through every state and remove all transitions that reference state_id.
 	for state in states:
 		if state["id"] == state_id:
 			var i = states.find(state)
@@ -59,8 +58,6 @@ func set_state_position(state_id, position):
 	for state in states:
 		if state["id"] == state_id:
 			state["position"] = position
-			print("New position ", position)
-			#emit_signal("states_changed")
 
 func set_state_name(state_id, name):
 	for state in states:

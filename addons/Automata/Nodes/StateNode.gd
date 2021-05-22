@@ -4,6 +4,7 @@ class_name StateGraphNode
 
 signal right_mouse_pressed
 signal show_properties
+signal delete_button_pressed
 
 signal change_state_name
 
@@ -33,6 +34,7 @@ func _ready():
 	connect("mouse_exited", self, "_on_mouse_exited")
 	title_lineedit.connect("text_changed", self, "on_title_lineedit_text_changed")
 	okay_button.connect("pressed", self, "hide_properties")
+	delete_button.connect("pressed", self, "delete_button_pressed")
 	
 	hide_properties()
 	set_state_name(state_name)
@@ -69,3 +71,6 @@ func show_properties():
 	properties_container.show()
 	rect_size.x = 250
 	rect_size.y = 0
+
+func delete_button_pressed():
+	emit_signal("delete_button_pressed", id)
