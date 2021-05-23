@@ -5,7 +5,7 @@
 [ext_resource path="res://addons/Automata/Nodes/TransitionNode.gd" type="Script" id=3]
 
 [node name="TransitionNode" type="GraphNode"]
-rect_pivot_offset = Vector2( 32, 32 )
+rect_pivot_offset = Vector2( 21, 21 )
 custom_styles/frame = ExtResource( 1 )
 slot/0/left_enabled = false
 slot/0/left_type = 0
@@ -19,9 +19,10 @@ __meta__ = {
 }
 
 [node name="TriangleButton" type="TextureButton" parent="."]
-margin_right = 60.0
-margin_bottom = 69.0
-rect_pivot_offset = Vector2( 32, 32 )
+margin_right = 42.0
+margin_bottom = 42.0
+rect_min_size = Vector2( 42, 42 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture_normal = ExtResource( 2 )
+expand = true

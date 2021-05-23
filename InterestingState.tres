@@ -6,60 +6,46 @@
 script = ExtResource( 1 )
 states = [ {
 "id": 3,
-"name": "WOW",
+"name": "Slowing Down",
 "on_enter_method": "",
 "on_exit_method": "",
 "on_update_method": "",
-"position": Vector2( -1309.5, -2264 ),
+"position": Vector2( -1246.73, -503.776 ),
 "transitions": [ {
-"conditions": [  ],
-"to_state_id": 5
-}, {
 "conditions": [  ],
 "to_state_id": 0
 } ]
 }, {
 "id": 5,
-"name": "eggs",
+"name": "Driving",
 "on_enter_method": "",
 "on_exit_method": "",
 "on_update_method": "",
-"position": Vector2( -1445, -1959 ),
+"position": Vector2( -1247.23, -134.776 ),
 "transitions": [ {
 "conditions": [  ],
 "to_state_id": 3
 } ]
 }, {
 "id": 0,
-"name": "gggg",
+"name": "Idle",
 "on_enter_method": "",
 "on_exit_method": "",
 "on_update_method": "",
-"position": Vector2( -1070, -2089 ),
+"position": Vector2( -1731.6, -295.968 ),
 "transitions": [ {
 "conditions": [  ],
 "to_state_id": 5
-}, {
-"conditions": [  ],
-"to_state_id": 1
 } ]
 }, {
 "id": 1,
-"name": "EPIC",
+"name": "Start",
 "on_enter_method": "",
 "on_exit_method": "",
 "on_update_method": "",
-"position": Vector2( -1054.6, -1897.27 ),
+"position": Vector2( -2114.66, -292.116 ),
 "transitions": [ {
 "conditions": [  ],
-"to_state_id": 2
+"to_state_id": 0
 } ]
-}, {
-"id": 2,
-"name": "New",
-"on_enter_method": "",
-"on_exit_method": "",
-"on_update_method": "",
-"position": Vector2( -590.597, -1956.27 ),
-"transitions": [  ]
 } ]

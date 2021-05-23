@@ -88,6 +88,3 @@ func delete_button_pressed():
 func on_resize():
 	offset += last_size/2 - rect_size/2
 	last_size = rect_size
-
-func _process(delta):
-	title = str(offset)
