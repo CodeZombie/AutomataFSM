@@ -46,6 +46,6 @@ states = [ {
 "on_enter_method": "",
 "on_exit_method": "",
 "on_update_method": "",
-"position": Vector2( 22, -1370 ),
+"position": Vector2( -77, -1657 ),
 "transitions": [  ]
 } ]

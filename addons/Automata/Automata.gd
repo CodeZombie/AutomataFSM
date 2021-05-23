@@ -1,6 +1,5 @@
 #TODO:
 #	Draw methods in StateMachineEditor need to honour scale
-#	Any "New State" created should be placed in the center of the viewport
 #	Expanding states should keep them centered in the same location
 #	Right clicking anywhere except a node will cancel a transition connection
 #	When you save a StateMachine resource into the filesystem and then double click on it, you should

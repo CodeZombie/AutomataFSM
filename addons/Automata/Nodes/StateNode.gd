@@ -18,7 +18,7 @@ var mouse_hovered = false
 
 var id
 var state_name setget set_state_name
-
+onready var last_size = rect_size
 
 func set_state_name(val):
 	state_name = val
@@ -26,8 +26,6 @@ func set_state_name(val):
 		state_name_label.text = val
 	if title_lineedit != null and title_lineedit.text != val:
 		title_lineedit.text = val
-	#propagate to state_machine_editor which will propogate up to state_machine
-	
 	
 func _ready():
 	connect("mouse_entered", self, "_on_mouse_entered")
@@ -35,6 +33,7 @@ func _ready():
 	title_lineedit.connect("text_changed", self, "on_title_lineedit_text_changed")
 	okay_button.connect("pressed", self, "hide_properties")
 	delete_button.connect("pressed", self, "delete_button_pressed")
+	connect("resized", self, "on_resize")
 	
 	hide_properties()
 	set_state_name(state_name)
@@ -60,13 +59,13 @@ func _on_mouse_exited():
 	
 func hide_properties():
 	properties_container.hide()
-	
 	rect_size.x = 0
 	rect_size.y = 0
 	title_container.show()
 	
 func show_properties():
 	emit_signal("show_properties")
+	var original_rect_size = rect_size
 	title_container.hide()
 	properties_container.show()
 	rect_size.x = 250
@@ -74,3 +73,7 @@ func show_properties():
 
 func delete_button_pressed():
 	emit_signal("delete_button_pressed", id)
+	
+func on_resize():
+	offset += last_size/2 - rect_size/2
+	last_size = rect_size
