@@ -1,12 +1,13 @@
 #TODO:
 #	Draw methods in StateMachineEditor need to honour scale
-#	Draw commands need to be placed in a CanvasItem above the GraphEdit.
 #	Any "New State" created should be placed in the center of the viewport
 #	Expanding states should keep them centered in the same location
 #	Right clicking anywhere except a node will cancel a transition connection
 #	When you save a StateMachine resource into the filesystem and then double click on it, you should
 #		be able to edit it as you'd expect.
 #	Add checks on every method to ensure referenced state_ids are still in the State Machine.
+#	Consider removing the "State_Changed" signal from the statemachine, and just sticking
+#		repopulate() methods in the StateMachineInterface methods in the editor.
 
 tool
 extends EditorPlugin

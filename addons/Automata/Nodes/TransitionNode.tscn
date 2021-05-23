@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://addons/Automata/Styles/Blank_Stylebox.tres" type="StyleBox" id=1]
+[ext_resource path="res://addons/Automata/Resources/Transition_Arrow.png" type="Texture" id=2]
+[ext_resource path="res://addons/Automata/Nodes/TransitionNode.gd" type="Script" id=3]
+
+[node name="TransitionNode" type="GraphNode"]
+custom_styles/frame = ExtResource( 1 )
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color( 1, 1, 1, 1 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureButton" type="TextureButton" parent="."]
+margin_right = 60.0
+margin_bottom = 69.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource( 2 )

@@ -6,24 +6,46 @@
 script = ExtResource( 1 )
 states = [ {
 "id": 3,
-"name": "3",
+"name": "WOW",
 "on_enter_method": "",
 "on_exit_method": "",
 "on_update_method": "",
-"position": Vector2( -126.5, -858 ),
+"position": Vector2( 361.5, -2144 ),
+"transitions": [ {
+"conditions": [  ],
+"to_state_id": 5
+}, {
+"conditions": [  ],
+"to_state_id": 0
+} ]
+}, {
+"id": 5,
+"name": "eggs",
+"on_enter_method": "",
+"on_exit_method": "",
+"on_update_method": "",
+"position": Vector2( -1227, -1893 ),
+"transitions": [ {
+"conditions": [  ],
+"to_state_id": 3
+} ]
+}, {
+"id": 0,
+"name": "New StGREATate",
+"on_enter_method": "",
+"on_exit_method": "",
+"on_update_method": "",
+"position": Vector2( -475, -1656 ),
 "transitions": [ {
 "conditions": [  ],
 "to_state_id": 5
 } ]
 }, {
-"id": 5,
-"name": "5",
+"id": 1,
+"name": "New State",
 "on_enter_method": "",
 "on_exit_method": "",
 "on_update_method": "",
-"position": Vector2( -399, -939 ),
-"transitions": [ {
-"conditions": [  ],
-"to_state_id": 3
-} ]
+"position": Vector2( 22, -1370 ),
+"transitions": [  ]
 } ]

@@ -3,9 +3,10 @@
 tool
 extends Control
 
-onready var StateNode = preload("Nodes/StateNode.tscn")
-onready var graphEdit = $VBoxContainer/GraphEdit
-onready var NewStateButton = $VBoxContainer/HBoxContainer/NewStateButton
+onready var State_Node = preload("Nodes/StateNode.tscn")
+onready var Transition_Node = preload("Nodes/TransitionNode.tscn")
+onready var Graph_Edit = $VBoxContainer/GraphEdit
+onready var New_State_Button = $VBoxContainer/HBoxContainer/NewStateButton
 
 var ColorGreen = Color(.64, .93, .67)
 var ColorRed = Color(1, .29, .27)
@@ -20,60 +21,124 @@ var first_state_node_right_clicked = null
 #
 #######################################
 func on_add_state_button_pressed():
-	if state_machine_set():
-		print("Adding new state...")
-		state_machine_controller.state_machine.add_state("New State")
-
+	create_state()
+	
+func delete_state_node_button_pressed(id):
+	delete_state(id)
+	
 func state_node_right_clicked(state_node):
 	if first_state_node_right_clicked == null:
 		first_state_node_right_clicked = state_node
 	else:
 		add_transition(first_state_node_right_clicked, state_node)
 		first_state_node_right_clicked = null
+
+func on_state_node_moved():
+	update_state_positions()
+	update_transition_positions()
+	
+func on_state_graphnode_expanded():
+	for state_node in get_all_state_nodes():
+		state_node.hide_properties()
 		
+func on_state_name_changed(state_id, new_name):
+	update_state_name(state_id, new_name)
+	
 #######################################
 #
-# Core Methods
+# State Machine Interface
+#
+#######################################
+
+func create_state():
+	if state_machine_set():
+		var initial_position = Graph_Edit.scroll_offset + (Graph_Edit.rect_size/2)
+		state_machine_controller.state_machine.add_state("New State", initial_position)
+
+func delete_state(id):
+	state_machine_controller.state_machine.delete_state(id)
+	
+func update_state_positions():
+	for state_node in get_all_state_nodes():
+		state_machine_controller.state_machine.set_state_position(state_node.id, state_node.offset)
+	
+func update_state_name(state_id, new_name):
+	state_machine_controller.state_machine.set_state_name(state_id, new_name)
+	
+func add_transition(from, to):
+	if not state_machine_set():
+		return
+	if from == to:
+		return
+	state_machine_controller.state_machine.add_transition(from.id, to.id)
+	
+#######################################
+#
+# Editor Core Methods
 #
 #######################################
 func add_state_node(state):
-	var newStateNode = StateNode.instance()
+	var newStateNode = State_Node.instance()
 	newStateNode.id = state["id"]
 	newStateNode.state_name = state["name"]
 	newStateNode.offset = state["position"]
 	newStateNode.connect("right_mouse_pressed", self, "state_node_right_clicked")
 	newStateNode.connect("show_properties", self, "on_state_graphnode_expanded")
 	newStateNode.connect("change_state_name", self, "on_state_name_changed")
-	newStateNode.connect("delete_button_pressed", self, "delete_state_node")
-	graphEdit.add_child(newStateNode)
-	
-func on_state_name_changed(state_id, new_name):
-	state_machine_controller.state_machine.set_state_name(state_id, new_name)
-	
-func update_nodegraph_state(state):
-	var node = get_state_node_by_id(state["id"])
-	node.state_name = state["name"]
-	node.offset = state["position"]
-	
-func add_transition(from, to):
-	if not state_machine_set():
-		return
-		
-	if from == to:
-		return
-		
-	state_machine_controller.state_machine.add_transition(from.id, to.id)
+	newStateNode.connect("delete_button_pressed", self, "delete_state_node_button_pressed")
+	newStateNode.connect("offset_changed", self, "on_state_node_moved")
+	Graph_Edit.add_child(newStateNode)
 
+func delete_state_node(id):
+	var state_node = get_state_node_by_id(id)
+	Graph_Edit.remove_child(state_node)
+	state_node.queue_free()
+	
 func get_state_node_by_id(id):
-	for graphnode in get_all_state_graphnodes():
+	for graphnode in get_all_state_nodes():
 		if graphnode.id == id:
 			return graphnode
 	return null
 	
-func get_all_state_graphnodes():
+func get_all_state_nodes():
 	var out = []
-	for node in graphEdit.get_children():
+	for node in Graph_Edit.get_children():
 		if node is StateGraphNode:
+			out.push_back(node)
+	return out
+	
+	
+	
+func create_transition_node(from_state_id, transition):
+	print("Creating transition node")
+	#get the two state nodes this transition touches
+	#find the middle point between the two of them
+	#transition nodes will be responsible for positioning and rotation themselves
+	var from_state_node = get_state_node_by_id(from_state_id)
+	var to_state_node = get_state_node_by_id(transition["to_state_id"])
+	var newTransitionNode = Transition_Node.instance()
+	newTransitionNode.set_transition_ids(from_state_node.id, to_state_node.id)
+	newTransitionNode.update_position(get_all_state_nodes())
+	Graph_Edit.add_child(newTransitionNode)
+		
+
+	
+func update_state_node(state):
+	var node = get_state_node_by_id(state["id"])
+	if node.state_name != state["name"]:
+		node.state_name = state["name"]
+		
+	if node.offset != state["position"]:
+		node.offset = state["position"]
+	
+
+
+
+	
+func get_all_transition_nodes():
+	var out = []
+	for node in Graph_Edit.get_children():
+		if node is TransitionNode:
 			out.push_back(node)
 	return out
 	
@@ -81,43 +146,41 @@ func state_machine_set():
 	if state_machine_controller == null or state_machine_controller.state_machine == null:
 		return false
 	return true
+	
+func update_transition_positions():
+	for transition_node in get_all_transition_nodes():
+		transition_node.update_position(get_all_state_nodes())
 
-func delete_state_node(id):
-	state_machine_controller.state_machine.delete_state(id)
-	var node = get_state_node_by_id(id)
-	graphEdit.remove_child(node)
-	node.queue_free()
-
-func depopulate():
-	for state_node in get_all_state_graphnodes():
-		graphEdit.remove_child(state_node)
-		state_node.queue_free()
-
-func populate():
+func populate(): #rename to populate_gra
 	if not state_machine_set():
 		return
 	
 	var state_ids = []
 	
+	#Find all states and corresponding statenodes, updating them if they exist, and creating them if they don't.
 	for state in state_machine_controller.state_machine.states:
 		state_ids.push_back(state["id"])
 		if get_state_node_by_id(state["id"]) == null:
 			add_state_node(state)
 		else:
-			update_nodegraph_state(state)
+			update_state_node(state)
 	
-	for node in get_all_state_graphnodes():
+	#Delete all statenodes that no longer have a corresponding state.
+	for node in get_all_state_nodes():
 		if state_ids.find(node.id) == -1:
 			delete_state_node(node.id)
-
-func graph_node_moved():
-	for state_node in get_all_state_graphnodes():
-		state_machine_controller.state_machine.set_state_position(state_node.id, state_node.offset)
-	populate()
 	
-func on_state_graphnode_expanded():
-	for state_node in get_all_state_graphnodes():
-		state_node.hide_properties()
+	#Delete all transition nodes
+	for transition_node in get_all_transition_nodes():
+		Graph_Edit.remove_child(transition_node)
+		transition_node.queue_free()
+	
+	#Create all transition nodes.
+	for state in state_machine_controller.state_machine.states:
+		for transition in state["transitions"]:
+			create_transition_node(state["id"], transition)
+	
+
 #######################################
 #
 # System Methods
@@ -125,14 +188,14 @@ func on_state_graphnode_expanded():
 #######################################
 
 func _draw():
-	var margin_size = 3 * graphEdit.zoom
+	var margin_size = 3 * Graph_Edit.zoom
 	if first_state_node_right_clicked != null:
-		var to_pos = get_local_mouse_position() - graphEdit.rect_position
-		var from_pos = first_state_node_right_clicked.rect_position + (first_state_node_right_clicked.rect_size/2) * graphEdit.zoom
-		var from_pos_edge = get_line_rect_intersection_point(first_state_node_right_clicked.rect_position + Vector2(margin_size, margin_size), first_state_node_right_clicked.rect_position + first_state_node_right_clicked.rect_size * graphEdit.zoom - Vector2(margin_size, margin_size), from_pos, to_pos)
-		graphEdit.add_line(from_pos_edge, to_pos, ColorGreen)
-		graphEdit.add_circle(to_pos, ColorGreen)
-		graphEdit.add_circle(from_pos_edge, ColorGreen)
+		var to_pos = get_local_mouse_position() - Graph_Edit.rect_position
+		var from_pos = first_state_node_right_clicked.rect_position + (first_state_node_right_clicked.rect_size/2) * Graph_Edit.zoom
+		var from_pos_edge = get_line_rect_intersection_point(first_state_node_right_clicked.rect_position + Vector2(margin_size, margin_size), first_state_node_right_clicked.rect_position + first_state_node_right_clicked.rect_size * Graph_Edit.zoom - Vector2(margin_size, margin_size), from_pos, to_pos)
+		Graph_Edit.add_line(from_pos_edge, to_pos, ColorGreen)
+		Graph_Edit.add_circle(to_pos, ColorGreen)
+		Graph_Edit.add_circle(from_pos_edge, ColorGreen)
 		
 	if state_machine_set():
 		for state in state_machine_controller.state_machine.states:
@@ -141,29 +204,34 @@ func _draw():
 				var to_graphnode = get_state_node_by_id(transition["to_state_id"])
 				var from_node_position = from_graphnode.rect_position
 				var to_node_position = to_graphnode.rect_position 
-				var from_pos = from_node_position + (from_graphnode.rect_size/2) * graphEdit.zoom
-				var to_pos = to_node_position + (to_graphnode.rect_size/2) * graphEdit.zoom
+				var from_pos = from_node_position + (from_graphnode.rect_size/2) * Graph_Edit.zoom
+				var to_pos = to_node_position + (to_graphnode.rect_size/2) * Graph_Edit.zoom
 				
-				var line_start = get_line_rect_intersection_point(from_node_position + Vector2(margin_size,margin_size), from_node_position + from_graphnode.rect_size * graphEdit.zoom - Vector2(margin_size,margin_size), from_pos, to_pos)
-				var line_end = get_line_rect_intersection_point(to_node_position + Vector2(margin_size,margin_size), to_node_position + to_graphnode.rect_size * graphEdit.zoom - Vector2(margin_size,margin_size), to_pos, from_pos)
-				graphEdit.add_line(line_start, line_end, ColorGreen)
-				graphEdit.add_circle(line_start,  ColorGreen)
-				graphEdit.add_circle(line_end, ColorGreen)
+				var line_start = get_line_rect_intersection_point(from_node_position + Vector2(margin_size,margin_size), from_node_position + from_graphnode.rect_size * Graph_Edit.zoom - Vector2(margin_size,margin_size), from_pos, to_pos)
+				var line_end = get_line_rect_intersection_point(to_node_position + Vector2(margin_size,margin_size), to_node_position + to_graphnode.rect_size * Graph_Edit.zoom - Vector2(margin_size,margin_size), to_pos, from_pos)
+				Graph_Edit.add_line(line_start, line_end, ColorGreen)
+				Graph_Edit.add_circle(line_start,  ColorGreen)
+				Graph_Edit.add_circle(line_end, ColorGreen)
 
 func _process(dt):
 	update()
 	
 func _ready():
-	NewStateButton.connect("pressed", self, "on_add_state_button_pressed")
-	graphEdit.connect("_end_node_move", self, "graph_node_moved")
+	print("READY")
+	New_State_Button.connect("pressed", self, "on_add_state_button_pressed")
+	#Graph_Edit.connect("_end_node_move", self, "on_state_node_moved")
 	
 func _enter_tree():
-	graphEdit = $VBoxContainer/GraphEdit
+	print("Enter Tree")
+	pass
 	
 func _exit_tree():
+	print("Exit Tree")
 	state_machine_controller = null
 	
 func set_state_machine_controller(value):
+	#Disconnect signals from the previously set state_machine if one was set
+	#Connect signals to the new state_machine.
 	if state_machine_set():
 		print("Disconnecting states_changed signal")
 		state_machine_controller.state_machine.disconnect("states_changed", self, "populate")

@@ -27,19 +27,19 @@ __meta__ = {
 [node name="ContentContainer" type="VBoxContainer" parent="."]
 margin_left = 29.0
 margin_top = 30.0
-margin_right = 141.0
-margin_bottom = 304.0
+margin_right = 99.0
+margin_bottom = 44.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="TitleContainer" type="VBoxContainer" parent="ContentContainer"]
-margin_right = 112.0
+margin_right = 70.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="StateNameLabel" type="Label" parent="ContentContainer/TitleContainer"]
-margin_right = 112.0
+margin_right = 70.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -48,6 +48,7 @@ align = 1
 valign = 1
 
 [node name="PropertiesContainer" type="VBoxContainer" parent="ContentContainer"]
+visible = false
 margin_top = 18.0
 margin_right = 112.0
 margin_bottom = 274.0

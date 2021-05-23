@@ -24,7 +24,7 @@ func add_transition(from_state_id, to_state_id):
 	emit_signal("states_changed")
 
 ### STATES
-func add_state(state_name):
+func add_state(state_name, position):
 	var id = get_new_unique_id(0)
 	var new_state = {
 		"name": state_name,
@@ -33,7 +33,7 @@ func add_state(state_name):
 		"on_update_method": "",
 		"on_exit_method": "",
 		"transitions": [],
-		"position": Vector2(0,0),
+		"position": position,
 	}
 	states.push_back(new_state)
 	emit_signal("states_changed")
@@ -50,14 +50,14 @@ func delete_state(state_id):
 		if state["id"] == state_id:
 			var i = states.find(state)
 			states.remove(i)
+			delete_dead_transitions()
 			emit_signal("states_changed")
-	delete_dead_transitions()
-
 
 func set_state_position(state_id, position):
 	for state in states:
 		if state["id"] == state_id:
 			state["position"] = position
+			#We dont emit "stated_changed" here because that would cause an infinite loop.
 
 func set_state_name(state_id, name):
 	for state in states:
