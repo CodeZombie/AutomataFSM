@@ -7,6 +7,7 @@ signal show_properties
 signal delete_button_pressed
 
 signal change_state_name
+signal centered_offset_changed
 
 onready var state_name_label = $ContentContainer/TitleContainer/StateNameLabel
 onready var properties_container = $ContentContainer/PropertiesContainer
@@ -20,6 +21,15 @@ var id
 var state_name setget set_state_name
 onready var last_size = rect_size
 
+func on_offset_changed():
+	emit_signal("centered_offset_changed", id)
+
+func center_on_position(value):
+	offset = value - rect_size/2
+	
+func get_centered_offset():
+	return offset + rect_size/2
+	
 func set_state_name(val):
 	state_name = val
 	if state_name_label != null:
@@ -34,6 +44,7 @@ func _ready():
 	okay_button.connect("pressed", self, "hide_properties")
 	delete_button.connect("pressed", self, "delete_button_pressed")
 	connect("resized", self, "on_resize")
+	connect("offset_changed", self, "on_offset_changed")
 	
 	hide_properties()
 	set_state_name(state_name)
@@ -77,3 +88,6 @@ func delete_button_pressed():
 func on_resize():
 	offset += last_size/2 - rect_size/2
 	last_size = rect_size
+
+func _process(delta):
+	title = str(offset)

@@ -33,8 +33,8 @@ func state_node_right_clicked(state_node):
 		add_transition(first_state_node_right_clicked, state_node)
 		first_state_node_right_clicked = null
 
-func on_state_node_moved():
-	update_state_positions()
+func on_state_node_moved(id):
+	update_state_position(id)
 	update_transition_positions()
 	
 func on_state_graphnode_expanded():
@@ -58,9 +58,10 @@ func create_state():
 func delete_state(id):
 	state_machine_controller.state_machine.delete_state(id)
 	
-func update_state_positions():
-	for state_node in get_all_state_nodes():
-		state_machine_controller.state_machine.set_state_position(state_node.id, state_node.offset)
+func update_state_position(id):
+	#for state_node in get_all_state_nodes():
+	var state_node = get_state_node_by_id(id)
+	state_machine_controller.state_machine.set_state_position(state_node.id, state_node.get_centered_offset())
 	
 func update_state_name(state_id, new_name):
 	state_machine_controller.state_machine.set_state_name(state_id, new_name)
@@ -81,12 +82,12 @@ func add_state_node(state):
 	var newStateNode = State_Node.instance()
 	newStateNode.id = state["id"]
 	newStateNode.state_name = state["name"]
-	newStateNode.offset = state["position"]
+	newStateNode.center_on_position(state["position"])
 	newStateNode.connect("right_mouse_pressed", self, "state_node_right_clicked")
 	newStateNode.connect("show_properties", self, "on_state_graphnode_expanded")
 	newStateNode.connect("change_state_name", self, "on_state_name_changed")
 	newStateNode.connect("delete_button_pressed", self, "delete_state_node_button_pressed")
-	newStateNode.connect("offset_changed", self, "on_state_node_moved")
+	newStateNode.connect("centered_offset_changed", self, "on_state_node_moved")
 	Graph_Edit.add_child(newStateNode)
 
 func delete_state_node(id):
@@ -119,6 +120,7 @@ func create_transition_node(from_state_id, transition):
 	var newTransitionNode = Transition_Node.instance()
 	newTransitionNode.set_transition_ids(from_state_node.id, to_state_node.id)
 	newTransitionNode.update_position(get_all_state_nodes())
+	newTransitionNode.connect("ready", self, "update_transition_positions")
 	Graph_Edit.add_child(newTransitionNode)
 		
 
@@ -128,19 +130,22 @@ func update_state_node(state):
 	if node.state_name != state["name"]:
 		node.state_name = state["name"]
 		
-	if node.offset != state["position"]:
-		node.offset = state["position"]
+	if node.get_centered_offset() != state["position"]:
+		node.center_on_position(state["position"])
 	
 
-
-
-	
 func get_all_transition_nodes():
 	var out = []
 	for node in Graph_Edit.get_children():
 		if node is TransitionNode:
 			out.push_back(node)
 	return out
+	
+func get_transition_node_by_id(id):
+	for transition_node in get_all_transition_nodes():
+		if transition_node.id == id:
+			return transition_node
+	return null
 	
 func state_machine_set():
 	if state_machine_controller == null or state_machine_controller.state_machine == null:
@@ -170,15 +175,24 @@ func populate(): #rename to populate_gra
 		if state_ids.find(node.id) == -1:
 			delete_state_node(node.id)
 	
-	#Delete all transition nodes
-	for transition_node in get_all_transition_nodes():
-		Graph_Edit.remove_child(transition_node)
-		transition_node.queue_free()
+	var transition_ids = []
 	
-	#Create all transition nodes.
+	#Find all transition nodes, updating if exists, else creating them.
 	for state in state_machine_controller.state_machine.states:
 		for transition in state["transitions"]:
-			create_transition_node(state["id"], transition)
+			var transition_id = transition_id(state.id, transition["to_state_id"])
+			transition_ids.push_back(transition_id)
+			var transition_node = get_transition_node_by_id(transition_id)
+			if transition_node == null:
+				create_transition_node(state.id, transition)
+			else:
+				#UPDATE TX NODE
+				pass
+
+	for transition_node in get_all_transition_nodes():
+		if transition_ids.find(transition_node.id) == -1:
+			Graph_Edit.remove_child(transition_node)
+			transition_node.queue_free()
 	
 
 #######################################
@@ -280,3 +294,6 @@ func get_line_rect_intersection_point(rect_topleft, rect_bottomright, line_a, li
 		return closest
 	
 	return Vector2(0,0)
+
+func transition_id(from_id, to_id):
+	return str(from_id) + str(to_id)

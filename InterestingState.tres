@@ -10,7 +10,7 @@ states = [ {
 "on_enter_method": "",
 "on_exit_method": "",
 "on_update_method": "",
-"position": Vector2( 361.5, -2144 ),
+"position": Vector2( -1309.5, -2264 ),
 "transitions": [ {
 "conditions": [  ],
 "to_state_id": 5
@@ -24,28 +24,42 @@ states = [ {
 "on_enter_method": "",
 "on_exit_method": "",
 "on_update_method": "",
-"position": Vector2( -1227, -1893 ),
+"position": Vector2( -1445, -1959 ),
 "transitions": [ {
 "conditions": [  ],
 "to_state_id": 3
 } ]
 }, {
 "id": 0,
-"name": "New StGREATate",
+"name": "gggg",
 "on_enter_method": "",
 "on_exit_method": "",
 "on_update_method": "",
-"position": Vector2( -475, -1656 ),
+"position": Vector2( -1070, -2089 ),
 "transitions": [ {
 "conditions": [  ],
 "to_state_id": 5
+}, {
+"conditions": [  ],
+"to_state_id": 1
 } ]
 }, {
 "id": 1,
-"name": "New State",
+"name": "EPIC",
 "on_enter_method": "",
 "on_exit_method": "",
 "on_update_method": "",
-"position": Vector2( -77, -1657 ),
+"position": Vector2( -1054.6, -1897.27 ),
+"transitions": [ {
+"conditions": [  ],
+"to_state_id": 2
+} ]
+}, {
+"id": 2,
+"name": "New",
+"on_enter_method": "",
+"on_exit_method": "",
+"on_update_method": "",
+"position": Vector2( -590.597, -1956.27 ),
 "transitions": [  ]
 } ]
