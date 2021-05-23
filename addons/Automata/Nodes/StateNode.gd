@@ -45,9 +45,9 @@ func _ready():
 	delete_button.connect("pressed", self, "delete_button_pressed")
 	connect("resized", self, "on_resize")
 	connect("offset_changed", self, "on_offset_changed")
-	
-	hide_properties()
 	set_state_name(state_name)
+	hide_properties()
+	
 	
 func on_title_lineedit_text_changed(val):
 	set_state_name(title_lineedit.text)
@@ -70,9 +70,10 @@ func _on_mouse_exited():
 	
 func hide_properties():
 	properties_container.hide()
+	title_container.show()
 	rect_size.x = 0
 	rect_size.y = 0
-	title_container.show()
+	
 	
 func show_properties():
 	emit_signal("show_properties")

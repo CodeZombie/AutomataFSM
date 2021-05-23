@@ -6,22 +6,22 @@
 script = ExtResource( 1 )
 states = [ {
 "id": 3,
-"name": "Slowing Down",
+"name": "Slowing Down!",
 "on_enter_method": "",
 "on_exit_method": "",
 "on_update_method": "",
-"position": Vector2( -1246.73, -503.776 ),
+"position": Vector2( -1229.73, -477.776 ),
 "transitions": [ {
 "conditions": [  ],
 "to_state_id": 0
 } ]
 }, {
 "id": 5,
-"name": "Driving",
+"name": "Driving?",
 "on_enter_method": "",
 "on_exit_method": "",
 "on_update_method": "",
-"position": Vector2( -1247.23, -134.776 ),
+"position": Vector2( -1001.23, -119.776 ),
 "transitions": [ {
 "conditions": [  ],
 "to_state_id": 3
@@ -32,7 +32,7 @@ states = [ {
 "on_enter_method": "",
 "on_exit_method": "",
 "on_update_method": "",
-"position": Vector2( -1731.6, -295.968 ),
+"position": Vector2( -1723.6, -289.968 ),
 "transitions": [ {
 "conditions": [  ],
 "to_state_id": 5
@@ -43,7 +43,7 @@ states = [ {
 "on_enter_method": "",
 "on_exit_method": "",
 "on_update_method": "",
-"position": Vector2( -2114.66, -292.116 ),
+"position": Vector2( -2206.66, -294.116 ),
 "transitions": [ {
 "conditions": [  ],
 "to_state_id": 0

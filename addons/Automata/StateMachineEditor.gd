@@ -119,7 +119,7 @@ func create_transition_node(from_state_id, transition):
 	var to_state_node = get_state_node_by_id(transition["to_state_id"])
 	var newTransitionNode = Transition_Node.instance()
 	newTransitionNode.set_transition_ids(from_state_node.id, to_state_node.id)
-	newTransitionNode.update_position(get_all_state_nodes())
+	newTransitionNode.set_state_node_positions(get_all_state_nodes())
 	newTransitionNode.connect("ready", self, "update_transition_positions")
 	Graph_Edit.add_child(newTransitionNode)
 		
@@ -154,7 +154,7 @@ func state_machine_set():
 	
 func update_transition_positions():
 	for transition_node in get_all_transition_nodes():
-		transition_node.update_position(get_all_state_nodes())
+		transition_node.set_state_node_positions(get_all_state_nodes())
 
 func populate(): #rename to populate_gra
 	if not state_machine_set():
