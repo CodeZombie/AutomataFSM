@@ -6,7 +6,26 @@
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 3 )
-states = [  ]
+states = [ {
+"id": 0,
+"name": "New State",
+"on_enter_method": "",
+"on_exit_method": "",
+"on_update_method": "",
+"position": Vector2( -2333.14, -686.322 ),
+"transitions": [  ]
+}, {
+"id": 1,
+"name": "New State",
+"on_enter_method": "",
+"on_exit_method": "",
+"on_update_method": "",
+"position": Vector2( -2017.76, -459.494 ),
+"transitions": [ {
+"conditions": [  ],
+"to_state_id": 0
+} ]
+} ]
 
 [node name="Node2D" type="Node2D"]
 

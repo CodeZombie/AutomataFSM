@@ -9,7 +9,6 @@ export (Resource) var state_machine
 func _ready():
 	pass # Replace with function body.
 
-
 #This should format StateMachine as a class and send that instead.
 func get_state_machine():
 	return state_machine

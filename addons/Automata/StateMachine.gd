@@ -3,6 +3,12 @@ tool
 extends Resource
 class_name StateMachine
 
+# TODO:
+# Whenever the dict changes, it should re-build an internal class structure that is 1:1
+#	of what the dict data represents. This way the rest of the plugin and eventual FSM
+#	can accesss the structure as an actual class and not a slow Dict.
+#	See the original code/AutomataFSM StateMachine.gd for how to do this.
+
 signal states_changed
 
 export(Array, Dictionary) var states setget set_states

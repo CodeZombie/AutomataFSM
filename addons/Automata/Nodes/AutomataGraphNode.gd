@@ -1,6 +1,15 @@
 tool
 extends GraphNode
 class_name AutomataGraphNode
+# IMPORTANT:
+#	GraphNodes have to types of position values:
+#	offset: The relative position within the GraphEdit area. 
+#		Use this for positioning Nodes in the GraphEdit.
+#		Does not require Zoom scaling.
+
+#	rect_position: the absolute pixel value on the screen.
+#		Use this for drawing on top of the GraphEdit.
+#		Requires zoom scaling.
 
 # The child elements within this scene must have their Mouse Filter set 
 #	to Pass or else the node will not be able to detect hovering correctly.
@@ -48,8 +57,14 @@ func on_resized():
 	offset += last_size/2 - rect_size/2
 	last_size = rect_size
 
-func center_on_position(value):
+func center_on_relative_position(value):
 	offset = value - rect_size/2
+
+func get_absolute_center(zoom):
+	return rect_position + (rect_size/2) * zoom
 	
-func get_centered_offset():
-	return offset + rect_size/2
+func get_relative_center():
+	return offset + (rect_size/2)
+
+func position_between(from_pos, to_pos, zoom):
+	offset = from_pos + ((to_pos - from_pos)/2) - (rect_pivot_offset * (1/zoom))

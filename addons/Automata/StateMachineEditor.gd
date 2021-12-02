@@ -1,5 +1,9 @@
 #VIEW
 
+#TODO:
+# * When switching StateMachines in the scene heirarchy, the START node is always
+#		in the same position. This shouldn't happen.
+
 tool
 extends Control
 
@@ -47,6 +51,7 @@ func on_state_name_changed(state_id, new_name):
 #######################################
 #
 # State Machine Interface
+# TODO: Move these methods fully into the StateMachine method.
 #
 #######################################
 
@@ -60,7 +65,7 @@ func delete_state(id):
 
 func save_all_state_positions():
 	for state_node in get_all_state_nodes():
-		state_machine_controller.state_machine.set_state_position(state_node.id, state_node.get_centered_offset())
+		state_machine_controller.state_machine.set_state_position(state_node.id, state_node.get_relative_center())
 		
 func update_state_name(state_id, new_name):
 	state_machine_controller.state_machine.set_state_name(state_id, new_name)
@@ -81,7 +86,7 @@ func add_state_node(state):
 	var newStateNode = State_Node.instance()
 	newStateNode.id = state["id"]
 	newStateNode.state_name = state["name"]
-	newStateNode.center_on_position(state["position"])
+	newStateNode.center_on_relative_position(state["position"])
 	newStateNode.connect("right_mouse_pressed", self, "state_node_right_clicked")
 	newStateNode.connect("show_properties", self, "on_state_graphnode_expanded")
 	newStateNode.connect("change_state_name", self, "on_state_name_changed")
@@ -114,14 +119,12 @@ func create_transition_node(from_state_id, transition):
 	#get the two state nodes this transition touches
 	#find the middle point between the two of them
 	#transition nodes will be responsible for positioning and rotation themselves
-	var from_state_node = get_state_node_by_id(from_state_id)
-	var to_state_node = get_state_node_by_id(transition["to_state_id"])
+	var from_node = get_state_node_by_id(from_state_id)
+	var to_node = get_state_node_by_id(transition["to_state_id"])
 	var newTransitionNode = Transition_Node.instance()
-	newTransitionNode.set_transition_ids(from_state_node.id, to_state_node.id)
-	newTransitionNode.set_state_node_positions(get_all_state_nodes())
+	newTransitionNode.initialize(from_node, to_node, Graph_Edit.zoom)
 	newTransitionNode.connect("ready", self, "update_transition_positions")
 	Graph_Edit.add_child(newTransitionNode)
-		
 
 	
 func update_state_node(state):
@@ -129,8 +132,8 @@ func update_state_node(state):
 	if node.state_name != state["name"]:
 		node.state_name = state["name"]
 		
-	if node.get_centered_offset() != state["position"]:
-		node.center_on_position(state["position"])
+	if node.get_relative_center() != state["position"]:
+		node.center_on_relative_position(state["position"])
 	
 
 func get_all_transition_nodes():
@@ -153,7 +156,9 @@ func state_machine_set():
 	
 func update_transition_positions():
 	for transition_node in get_all_transition_nodes():
-		transition_node.set_state_node_positions(get_all_state_nodes())
+		var from_state_node = get_state_node_by_id(transition_node.from_state_id)
+		var to_state_node = get_state_node_by_id(transition_node.to_state_id)
+		transition_node.position_between(from_state_node.get_relative_center(), to_state_node.get_relative_center(), Graph_Edit.zoom)
 
 func populate(): #rename to populate_gra
 	if not state_machine_set():
@@ -217,9 +222,9 @@ func _draw():
 				var to_graphnode = get_state_node_by_id(transition["to_state_id"])
 				var from_node_position = from_graphnode.rect_position
 				var to_node_position = to_graphnode.rect_position 
-				var from_pos = from_node_position + (from_graphnode.rect_size/2) * Graph_Edit.zoom
-				var to_pos = to_node_position + (to_graphnode.rect_size/2) * Graph_Edit.zoom
-				
+				var from_pos = from_graphnode.get_absolute_center(Graph_Edit.zoom)
+				var to_pos = to_graphnode.get_absolute_center(Graph_Edit.zoom)
+
 				var line_start = get_line_rect_intersection_point(from_node_position + Vector2(margin_size,margin_size), from_node_position + from_graphnode.rect_size * Graph_Edit.zoom - Vector2(margin_size,margin_size), from_pos, to_pos)
 				var line_end = get_line_rect_intersection_point(to_node_position + Vector2(margin_size,margin_size), to_node_position + to_graphnode.rect_size * Graph_Edit.zoom - Vector2(margin_size,margin_size), to_pos, from_pos)
 				Graph_Edit.add_line(line_start, line_end, ColorGreen)
@@ -295,4 +300,4 @@ func get_line_rect_intersection_point(rect_topleft, rect_bottomright, line_a, li
 	return Vector2(0,0)
 
 func transition_id(from_id, to_id):
-	return str(from_id) + str(to_id)
+	return str(from_id) + "_" + str(to_id)
