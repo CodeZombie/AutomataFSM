@@ -6,22 +6,25 @@
 script = ExtResource( 1 )
 states = [ {
 "id": 3,
-"name": "Slowing Down!",
+"name": "Driving",
 "on_enter_method": "",
 "on_exit_method": "",
 "on_update_method": "",
-"position": Vector2( -1223.73, -471.776 ),
+"position": Vector2( -1188.73, -292.776 ),
 "transitions": [ {
 "conditions": [  ],
 "to_state_id": 0
+}, {
+"conditions": [  ],
+"to_state_id": 2
 } ]
 }, {
 "id": 5,
-"name": "Driving?",
+"name": "Accelerating",
 "on_enter_method": "",
 "on_exit_method": "",
 "on_update_method": "",
-"position": Vector2( -995.23, -113.776 ),
+"position": Vector2( -1677.23, -288.776 ),
 "transitions": [ {
 "conditions": [  ],
 "to_state_id": 3
@@ -32,7 +35,7 @@ states = [ {
 "on_enter_method": "",
 "on_exit_method": "",
 "on_update_method": "",
-"position": Vector2( -1717.6, -283.968 ),
+"position": Vector2( -1684.2, -537.368 ),
 "transitions": [ {
 "conditions": [  ],
 "to_state_id": 5
@@ -43,9 +46,23 @@ states = [ {
 "on_enter_method": "",
 "on_exit_method": "",
 "on_update_method": "",
-"position": Vector2( -2194.66, -248.116 ),
+"position": Vector2( -2044.66, -546.116 ),
 "transitions": [ {
 "conditions": [  ],
 "to_state_id": 0
+} ]
+}, {
+"id": 2,
+"name": "Decellerating",
+"on_enter_method": "",
+"on_exit_method": "",
+"on_update_method": "",
+"position": Vector2( -1101.56, -548.305 ),
+"transitions": [ {
+"conditions": [  ],
+"to_state_id": 0
+}, {
+"conditions": [  ],
+"to_state_id": 5
 } ]
 } ]

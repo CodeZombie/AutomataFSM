@@ -2,11 +2,13 @@ tool
 extends GraphNode
 class_name AutomataGraphNode
 
+# The child elements within this scene must have their Mouse Filter set 
+#	to Pass or else the node will not be able to detect hovering correctly.
+
 signal right_mouse_pressed
 signal centered_offset_changed
 signal on_collapse
 signal on_expand
-signal on_move
 
 onready var last_size = rect_size
 var mouse_hovered = false
@@ -16,7 +18,6 @@ func _ready():
 	connect("mouse_entered", self, "_on_mouse_entered")
 	connect("mouse_exited", self, "_on_mouse_exited")
 	connect("resized", self, "on_resized")
-	connect("offset_changed", self, "on_offset_changed")
 
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == BUTTON_RIGHT:
@@ -52,7 +53,3 @@ func center_on_position(value):
 	
 func get_centered_offset():
 	return offset + rect_size/2
-
-func on_offset_changed():
-	emit_signal("on_move")
-	pass

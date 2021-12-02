@@ -17,14 +17,6 @@ onready var okay_button = $ContentContainer/PropertiesContainer/button_container
 
 var id
 var state_name setget set_state_name
-
-	
-func set_state_name(val):
-	state_name = val
-	if state_name_label != null:
-		state_name_label.text = val
-	if title_lineedit != null and title_lineedit.text != val:
-		title_lineedit.text = val
 	
 func _ready():
 	title_lineedit.connect("text_changed", self, "on_title_lineedit_text_changed")
@@ -56,3 +48,9 @@ func show_properties():
 func delete_button_pressed():
 	emit_signal("delete_button_pressed", id)
 	
+func set_state_name(val):
+	state_name = val
+	if state_name_label != null:
+		state_name_label.text = val
+	if title_lineedit != null and title_lineedit.text != val:
+		title_lineedit.text = val

@@ -29,7 +29,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/Automata/StateMachineController.gd"
 }, {
-"base": "GraphNode",
+"base": "AutomataGraphNode",
 "class": "TransitionNode",
 "language": "GDScript",
 "path": "res://addons/Automata/Nodes/TransitionNode.gd"

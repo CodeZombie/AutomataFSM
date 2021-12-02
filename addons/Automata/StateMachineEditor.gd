@@ -34,7 +34,7 @@ func state_node_right_clicked(state_node):
 		first_state_node_right_clicked = null
 
 func on_state_node_moved(): #id
-	#update_state_position(id)
+	save_all_state_positions()
 	update_transition_positions()
 	
 func on_state_graphnode_expanded():
@@ -57,12 +57,11 @@ func create_state():
 
 func delete_state(id):
 	state_machine_controller.state_machine.delete_state(id)
-	
-func update_state_position(id):
-	#for state_node in get_all_state_nodes():
-	var state_node = get_state_node_by_id(id)
-	state_machine_controller.state_machine.set_state_position(state_node.id, state_node.get_centered_offset())
-	
+
+func save_all_state_positions():
+	for state_node in get_all_state_nodes():
+		state_machine_controller.state_machine.set_state_position(state_node.id, state_node.get_centered_offset())
+		
 func update_state_name(state_id, new_name):
 	state_machine_controller.state_machine.set_state_name(state_id, new_name)
 	
@@ -87,7 +86,7 @@ func add_state_node(state):
 	newStateNode.connect("show_properties", self, "on_state_graphnode_expanded")
 	newStateNode.connect("change_state_name", self, "on_state_name_changed")
 	newStateNode.connect("delete_button_pressed", self, "delete_state_node_button_pressed")
-	newStateNode.connect("on_move", self, "on_state_node_moved")
+	newStateNode.connect("offset_changed", self, "on_state_node_moved")
 	Graph_Edit.add_child(newStateNode)
 
 func delete_state_node(id):
