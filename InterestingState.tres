@@ -10,7 +10,7 @@ states = [ {
 "on_enter_method": "",
 "on_exit_method": "",
 "on_update_method": "",
-"position": Vector2( -1229.73, -477.776 ),
+"position": Vector2( -1223.73, -471.776 ),
 "transitions": [ {
 "conditions": [  ],
 "to_state_id": 0
@@ -21,7 +21,7 @@ states = [ {
 "on_enter_method": "",
 "on_exit_method": "",
 "on_update_method": "",
-"position": Vector2( -1001.23, -119.776 ),
+"position": Vector2( -995.23, -113.776 ),
 "transitions": [ {
 "conditions": [  ],
 "to_state_id": 3
@@ -32,7 +32,7 @@ states = [ {
 "on_enter_method": "",
 "on_exit_method": "",
 "on_update_method": "",
-"position": Vector2( -1723.6, -289.968 ),
+"position": Vector2( -1717.6, -283.968 ),
 "transitions": [ {
 "conditions": [  ],
 "to_state_id": 5
@@ -43,7 +43,7 @@ states = [ {
 "on_enter_method": "",
 "on_exit_method": "",
 "on_update_method": "",
-"position": Vector2( -2206.66, -294.116 ),
+"position": Vector2( -2194.66, -248.116 ),
 "transitions": [ {
 "conditions": [  ],
 "to_state_id": 0

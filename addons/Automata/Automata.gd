@@ -9,20 +9,24 @@
 #		repopulate() methods in the StateMachineInterface methods in the editor.
 #	Highlighting a statenode and transition node allows you to move the transition node. Not desired behavior.
 #	TransitionNode positions dont respect zoom.
+#	Consider having Nodes automatically center in the view when you open them.
 
 tool
 extends EditorPlugin
 const StateMachineEditor = preload("StateMachineEditor.tscn")
 
+# Create a statemachineeditor, which will live in memory and be placed in the
+#	lower dock whenever the user selects a StateMachine in the scene.
 var state_machine_editor = StateMachineEditor.instance()
-var editor_selection
 
 func _enter_tree():
-	editor_selection = get_editor_interface().get_selection()
-	editor_selection.connect("selection_changed", self, "on_selected_node_changed")
+	# Triggered when the user enables the Automata plugin.
+	# Allow this plugin to detect when the user has clicked on something in the scene heirarchy
+	get_editor_interface().get_selection().connect("selection_changed", self, "on_selected_node_changed")
 
 func _exit_tree():
-	pass
+	# Triggered when the user disables the Automata plugin.
+	hide_editor()
 
 func show_editor(state_machine_controller):
 	if not state_machine_editor.is_inside_tree():
@@ -36,9 +40,14 @@ func hide_editor():
 		remove_control_from_bottom_panel(state_machine_editor)
 
 func on_selected_node_changed():
-	var selected_nodes = editor_selection.get_selected_nodes()
+	# Called when the user selects something in the scene heirarchy.
+	
+	# Hide the State Machine Editor in the bottom dock.
+	if state_machine_editor.is_inside_tree():
+		hide_editor()
+	
+	# If the user has selected one State Machine node, show the editor.
+	var selected_nodes = get_editor_interface().get_selection().get_selected_nodes()
 	if selected_nodes.size() == 1:
 		if selected_nodes[0] is StateMachineController:
 			show_editor(selected_nodes[0])
-		else:
-			hide_editor()
