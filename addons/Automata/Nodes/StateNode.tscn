@@ -58,10 +58,11 @@ size_flags_vertical = 5
 [node name="state_name_lineedit" type="LineEdit" parent="ContentContainer/PropertiesContainer"]
 margin_right = 112.0
 margin_bottom = 32.3292
+mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 6 )
 custom_styles/focus = ExtResource( 4 )
 custom_styles/normal = ExtResource( 4 )
-custom_fonts/font = ExtResource( 6 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
 align = 1
 expand_to_text_length = true
 placeholder_text = "State Name"
@@ -71,8 +72,8 @@ margin_top = 36.0
 margin_right = 112.0
 margin_bottom = 56.0
 rect_min_size = Vector2( 0, 20 )
-custom_fonts/font = ExtResource( 7 )
 custom_colors/font_color = Color( 0.462745, 0.462745, 0.470588, 1 )
+custom_fonts/font = ExtResource( 7 )
 text = "on enter method"
 valign = 2
 
@@ -80,10 +81,11 @@ valign = 2
 margin_top = 60.0
 margin_right = 112.0
 margin_bottom = 92.3292
+mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 6 )
 custom_styles/focus = ExtResource( 4 )
 custom_styles/normal = ExtResource( 4 )
-custom_fonts/font = ExtResource( 6 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
 expand_to_text_length = true
 
 [node name="on_update_label" type="Label" parent="ContentContainer/PropertiesContainer"]
@@ -91,8 +93,8 @@ margin_top = 96.0
 margin_right = 112.0
 margin_bottom = 116.0
 rect_min_size = Vector2( 0, 20 )
-custom_fonts/font = ExtResource( 7 )
 custom_colors/font_color = Color( 0.462745, 0.462745, 0.470588, 1 )
+custom_fonts/font = ExtResource( 7 )
 text = "on update method"
 valign = 2
 
@@ -100,10 +102,11 @@ valign = 2
 margin_top = 120.0
 margin_right = 112.0
 margin_bottom = 152.329
+mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 6 )
 custom_styles/focus = ExtResource( 4 )
 custom_styles/normal = ExtResource( 4 )
-custom_fonts/font = ExtResource( 6 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
 expand_to_text_length = true
 
 [node name="on_exit_label" type="Label" parent="ContentContainer/PropertiesContainer"]
@@ -111,8 +114,8 @@ margin_top = 156.0
 margin_right = 112.0
 margin_bottom = 176.0
 rect_min_size = Vector2( 0, 20 )
-custom_fonts/font = ExtResource( 7 )
 custom_colors/font_color = Color( 0.462745, 0.462745, 0.470588, 1 )
+custom_fonts/font = ExtResource( 7 )
 text = "on exit method"
 valign = 2
 
@@ -120,10 +123,11 @@ valign = 2
 margin_top = 180.0
 margin_right = 112.0
 margin_bottom = 212.329
+mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 6 )
 custom_styles/focus = ExtResource( 4 )
 custom_styles/normal = ExtResource( 4 )
-custom_fonts/font = ExtResource( 6 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
 expand_to_text_length = true
 
 [node name="HSeparator" type="HSeparator" parent="ContentContainer/PropertiesContainer"]
@@ -142,30 +146,32 @@ margin_bottom = 256.0
 [node name="delete_button" type="Button" parent="ContentContainer/PropertiesContainer/button_container"]
 margin_right = 61.2937
 margin_bottom = 32.3292
+mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_colors/font_color = Color( 0.984314, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0.929412, 0.611765, 0.611765, 1 )
+custom_colors/font_color_pressed = Color( 0.282353, 0.0980392, 0.0980392, 1 )
+custom_fonts/font = ExtResource( 6 )
 custom_styles/hover = ExtResource( 4 )
 custom_styles/pressed = ExtResource( 4 )
 custom_styles/focus = ExtResource( 4 )
 custom_styles/normal = ExtResource( 4 )
-custom_fonts/font = ExtResource( 6 )
-custom_colors/font_color = Color( 0.984314, 0, 0, 1 )
-custom_colors/font_color_hover = Color( 0.929412, 0.611765, 0.611765, 1 )
-custom_colors/font_color_pressed = Color( 0.282353, 0.0980392, 0.0980392, 1 )
 text = "delete"
 
 [node name="save_button" type="Button" parent="ContentContainer/PropertiesContainer/button_container"]
 margin_left = 65.0
 margin_right = 112.0
 margin_bottom = 32.3292
+mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 0.647059, 0.937255, 0.67451, 1 )
+custom_colors/font_color_pressed = Color( 0.290196, 0.431373, 0.301961, 1 )
+custom_fonts/font = ExtResource( 6 )
 custom_styles/hover = ExtResource( 4 )
 custom_styles/pressed = ExtResource( 4 )
 custom_styles/focus = ExtResource( 4 )
 custom_styles/normal = ExtResource( 4 )
-custom_fonts/font = ExtResource( 6 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_colors/font_color_hover = Color( 0.647059, 0.937255, 0.67451, 1 )
-custom_colors/font_color_pressed = Color( 0.290196, 0.431373, 0.301961, 1 )
 text = "okay"
