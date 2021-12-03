@@ -13,14 +13,17 @@ states = [ {
 "on_exit_method": "",
 "on_update_method": "",
 "position": Vector2( -2333.14, -686.322 ),
-"transitions": [  ]
+"transitions": [ {
+"conditions": [  ],
+"to_state_id": 1
+} ]
 }, {
 "id": 1,
 "name": "New State",
 "on_enter_method": "",
 "on_exit_method": "",
 "on_update_method": "",
-"position": Vector2( -2017.76, -459.494 ),
+"position": Vector2( -2002.7, -798.203 ),
 "transitions": [ {
 "conditions": [  ],
 "to_state_id": 0

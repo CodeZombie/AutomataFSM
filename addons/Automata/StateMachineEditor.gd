@@ -4,6 +4,19 @@
 # * When switching StateMachines in the scene heirarchy, the START node is always
 #		in the same position. This shouldn't happen.
 
+# * The actual flow of the program should be as follows:
+#		1: The StateMachineEditor (SME) loads a StateMachine.
+#		2: The SME creates a bunch of nodes to represent the StateMachine.
+#		3: Each node in the SME has signals/callbacks to directly modify the StateMachine directly.
+#		4: Every time the StateMachine is modified, the SME recieves a signal and rebuilds.
+#		5: This should not cause any cylclical loops and should ensure the View and Model are always in sync.
+
+#	Example:
+#		1. A Transition Node wants to delete itself.
+#		2. It does a emit("DeleteTransition", self), which is hooked up to the StateMachineController.
+#		3. The StateMachineController updates the Model (StateMachine.gd)
+#		4. The StateMachineController then updates the view from scratch with the new Model.
+
 tool
 extends Control
 
