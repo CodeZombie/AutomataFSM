@@ -1,3 +1,5 @@
+
+![Logo](https://i.imgur.com/eN2sxkg.png)
 # AutomataFSM
  A Godot Finite State Machine plugin
 
